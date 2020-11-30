@@ -18,3 +18,9 @@ export const closeModal = () => {
   refs.lightboxImage.setAttribute('src', '');
   refs.lightboxImage.setAttribute('alt', '');
 };
+export const onEscPress = event => {
+  if (event.code === 'Escape') closeModal();
+};
+export const onLightboxClick = event => {
+  if (event.target === event.currentTarget) closeModal();
+};
