@@ -1,39 +1,48 @@
 'use strict';
 import galleryItems from '../gallery-items.js';
 import { refs } from './refs.js';
+
 export const openModal = event => {
   event.preventDefault();
   if (event.target.nodeName !== 'IMG') return;
   refs.lightbox.classList.toggle('is-open');
-  refs.lightboxImage.setAttribute('src', galleryItems.find(item => item.original === event.target.dataset.source).original);
-  refs.lightboxImage.setAttribute('alt', galleryItems.find(item => item.original === event.target.dataset.source).description);
+  lightboxImageSource(event.target);
   refs.lightboxCloseBtn.addEventListener('click', closeModal);
-  window.addEventListener('keydown', onEscPress);
   refs.lightboxOverlay.addEventListener('click', onLightboxClick);
+  window.addEventListener('keydown', onEscPress);
   window.addEventListener('keydown', onArrowPress);
 };
+
+const lightboxImageSource = ({ dataset = '', alt = '' }) => {
+  refs.lightboxImage.src = dataset.source;
+  refs.lightboxImage.alt = alt;
+};
+
 const closeModal = () => {
   refs.lightbox.classList.toggle('is-open');
-  refs.lightboxImage.setAttribute('src', '');
-  refs.lightboxImage.setAttribute('alt', '');
+  lightboxImageSource({});
   refs.lightboxCloseBtn.removeEventListener('click', closeModal);
-  window.removeEventListener('keydown', onEscPress);
   refs.lightboxOverlay.removeEventListener('click', onLightboxClick);
+  window.removeEventListener('keydown', onEscPress);
   window.removeEventListener('keydown', onArrowPress);
 };
+
 const onEscPress = event => {
   if (event.code === 'Escape') closeModal();
 };
+
 const onLightboxClick = event => {
   if (event.target === event.currentTarget) closeModal();
 };
+
 const onArrowPress = event => {
-  let index = galleryItems.indexOf(galleryItems.find(item => item.original === refs.lightboxImage.getAttribute('src')));
+  const imageRef = galleryItems.find(item => item.original === refs.lightboxImage.src);
+  let index = galleryItems.indexOf(imageRef);
   if (event.code === 'ArrowLeft') {
     index === 0 ? (index = galleryItems.length - 1) : (index -= 1);
   } else if (event.code === 'ArrowRight') {
     index === galleryItems.length - 1 ? (index = 0) : (index += 1);
   }
-  refs.lightboxImage.setAttribute('src', galleryItems[index].original);
-  refs.lightboxImage.setAttribute('alt', galleryItems[index].description);
+  refs.lightboxImage.src = galleryItems[index].original;
+  refs.lightboxImage.alt = galleryItems[index].description;
 };

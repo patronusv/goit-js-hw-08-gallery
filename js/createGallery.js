@@ -13,7 +13,7 @@ export const createGallery = items => {
       class="gallery__image"
       src=${item.preview}
       data-source=${item.original}
-      alt=${item.description}
+      alt="${item.description}"
     />
   </a>
 </li>
