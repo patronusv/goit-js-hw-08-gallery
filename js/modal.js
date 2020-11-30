@@ -12,7 +12,7 @@ export const openModal = event => {
   refs.lightboxOverlay.addEventListener('click', onLightboxClick);
   window.addEventListener('keydown', onArrowPress);
 };
-export const closeModal = () => {
+const closeModal = () => {
   refs.lightbox.classList.toggle('is-open');
   refs.lightboxImage.setAttribute('src', '');
   refs.lightboxImage.setAttribute('alt', '');
@@ -21,13 +21,13 @@ export const closeModal = () => {
   refs.lightboxOverlay.removeEventListener('click', onLightboxClick);
   window.removeEventListener('keydown', onArrowPress);
 };
-export const onEscPress = event => {
+const onEscPress = event => {
   if (event.code === 'Escape') closeModal();
 };
-export const onLightboxClick = event => {
+const onLightboxClick = event => {
   if (event.target === event.currentTarget) closeModal();
 };
-export const onArrowPress = event => {
+const onArrowPress = event => {
   let index = galleryItems.indexOf(galleryItems.find(item => item.original === refs.lightboxImage.getAttribute('src')));
   if (event.code === 'ArrowLeft') {
     index === 0 ? (index = galleryItems.length - 1) : (index -= 1);
