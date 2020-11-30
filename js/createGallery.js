@@ -1,6 +1,5 @@
 'use strict';
 import { refs } from './refs.js';
-// import galleryItems from '/gallery-items.js';
 
 export const createGallery = items => {
   const markUp = items.reduce((acc, item) => {
