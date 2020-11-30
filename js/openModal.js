@@ -1,4 +1,5 @@
 'use strict';
+import galleryItems from '../gallery-items.js';
 import { refs } from './refs.js';
 export const openModal = event => {
   event.preventDefault();
@@ -7,4 +8,7 @@ export const openModal = event => {
   if (target.nodeName !== 'IMG') return;
   console.log('need to open bigger image');
   refs.lightbox.classList.toggle('is-open');
+  refs.lightboxImage.setAttribute('src', galleryItems.find(item => item.original === event.target.dataset.source).original);
+  console.log(galleryItems.find(item => item.original === event.target.dataset.source).original);
+  // console.log(refs.galleryList[event.target.dataset.source]);
 };

@@ -8,4 +8,10 @@ createGallery(galleryItems);
 refs.galleryList.addEventListener('click', openModal);
 refs.lightboxCloseBtn.addEventListener('click', () => {
   refs.lightbox.classList.toggle('is-open');
+  refs.lightboxImage.setAttribute('src', '');
+});
+window.addEventListener('keydown', event => {
+  if (event.code === 'Escape') {
+    refs.lightbox.classList.remove('is-open');
+  }
 });
