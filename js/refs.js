@@ -4,4 +4,5 @@ export const refs = {
   lightbox: document.querySelector('.js-lightbox'),
   lightboxCloseBtn: document.querySelector('[data-action="close-lightbox"]'),
   lightboxImage: document.querySelector('.lightbox__image'),
+  lightboxOverlay: document.querySelector('.lightbox__overlay'),
 };
