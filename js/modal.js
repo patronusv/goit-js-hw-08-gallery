@@ -12,15 +12,14 @@ export const openModal = event => {
   window.addEventListener('keydown', onKeyPress);
 };
 
-const lightboxImageSource = image => {
-  refs.lightboxImage.src = image.dataset.source;
-  refs.lightboxImage.alt = image.alt;
+const lightboxImageSource = ({ dataset = '', alt = '' }) => {
+  refs.lightboxImage.src = dataset.source || '';
+  refs.lightboxImage.alt = alt;
 };
 
 const closeModal = () => {
   refs.lightbox.classList.toggle('is-open');
-  refs.lightboxImage.src = '';
-  refs.lightboxImage.alt = '';
+  lightboxImageSource({});
   refs.lightboxCloseBtn.removeEventListener('click', closeModal);
   refs.lightboxOverlay.removeEventListener('click', onLightboxClick);
   window.removeEventListener('keydown', onKeyPress);
