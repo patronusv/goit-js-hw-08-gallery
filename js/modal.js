@@ -9,8 +9,7 @@ export const openModal = event => {
   lightboxImageSource(event.target);
   refs.lightboxCloseBtn.addEventListener('click', closeModal);
   refs.lightboxOverlay.addEventListener('click', onLightboxClick);
-  window.addEventListener('keydown', onEscPress);
-  window.addEventListener('keydown', onArrowPress);
+  window.addEventListener('keydown', onKeyPress);
 };
 
 const lightboxImageSource = image => {
@@ -24,19 +23,15 @@ const closeModal = () => {
   refs.lightboxImage.alt = '';
   refs.lightboxCloseBtn.removeEventListener('click', closeModal);
   refs.lightboxOverlay.removeEventListener('click', onLightboxClick);
-  window.removeEventListener('keydown', onEscPress);
-  window.removeEventListener('keydown', onArrowPress);
-};
-
-const onEscPress = event => {
-  if (event.code === 'Escape') closeModal();
+  window.removeEventListener('keydown', onKeyPress);
 };
 
 const onLightboxClick = event => {
   if (event.target === event.currentTarget) closeModal();
 };
 
-const onArrowPress = event => {
+const onKeyPress = event => {
+  if (event.code === 'Escape') closeModal();
   const imageRef = galleryItems.find(item => item.original === refs.lightboxImage.src);
   let index = galleryItems.indexOf(imageRef);
   if (event.code === 'ArrowLeft') {
